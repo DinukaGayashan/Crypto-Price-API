@@ -1,7 +1,6 @@
 package com.dinukagayashan.cryptopriceapi.domain.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data

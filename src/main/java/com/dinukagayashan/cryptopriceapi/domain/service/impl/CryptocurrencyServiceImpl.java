@@ -7,6 +7,9 @@ import com.dinukagayashan.cryptopriceapi.external.repository.CryptocurrencyRepos
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CryptocurrencyServiceImpl implements CryptocurrencyService {
 
@@ -20,5 +23,17 @@ public class CryptocurrencyServiceImpl implements CryptocurrencyService {
         cryptocurrency.setName(cryptocurrencyDto.getName());
 
         return cryptocurrencyRepository.save(cryptocurrency);
+    }
+
+    @Override
+    public List<CryptocurrencyDto> getAllCryptocurrencies() {
+        List<CryptocurrencyDto> cryptocurrencyDtoList=new ArrayList<CryptocurrencyDto>();
+        List<Cryptocurrency> cryptocurrencyList=cryptocurrencyRepository.findAll();
+
+        for(Cryptocurrency cryptocurrency: cryptocurrencyList){
+            cryptocurrencyDtoList.add(new CryptocurrencyDto(cryptocurrency.getId(),cryptocurrency.getName()));
+        }
+
+        return cryptocurrencyDtoList;
     }
 }
