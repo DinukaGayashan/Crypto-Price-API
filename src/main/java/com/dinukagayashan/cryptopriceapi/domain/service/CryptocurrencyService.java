@@ -6,6 +6,6 @@ import com.dinukagayashan.cryptopriceapi.domain.entities.dto.CryptocurrencyDto;
 import java.util.List;
 
 public interface CryptocurrencyService {
-    Cryptocurrency addCryptocurrency(CryptocurrencyDto cryptocurrencyDto);
+    Cryptocurrency addCryptocurrency(CryptocurrencyDto cryptocurrencyDto) throws Exception;
     List<CryptocurrencyDto> getAllCryptocurrencies();
 }

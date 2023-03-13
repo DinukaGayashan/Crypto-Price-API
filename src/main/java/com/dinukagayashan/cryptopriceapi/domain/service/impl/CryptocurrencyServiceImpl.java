@@ -16,13 +16,21 @@ public class CryptocurrencyServiceImpl implements CryptocurrencyService {
     @Autowired
     private CryptocurrencyRepository cryptocurrencyRepository;
 
-    @Override
-    public Cryptocurrency addCryptocurrency(CryptocurrencyDto cryptocurrencyDto) {
-        Cryptocurrency cryptocurrency=new Cryptocurrency();
-        cryptocurrency.setId(cryptocurrencyDto.getId());
-        cryptocurrency.setName(cryptocurrencyDto.getName());
+    private Cryptocurrency getCryptocurrency(CryptocurrencyDto cryptocurrencyDto) throws Exception{
+        try {
+            Cryptocurrency cryptocurrency=new Cryptocurrency();
+            cryptocurrency.setId(cryptocurrencyDto.getId());
+            cryptocurrency.setName(cryptocurrencyDto.getName());
 
-        return cryptocurrencyRepository.save(cryptocurrency);
+            return cryptocurrency;
+        }catch (Exception ex){
+            throw ex;
+        }
+    }
+
+    @Override
+    public Cryptocurrency addCryptocurrency(CryptocurrencyDto cryptocurrencyDto) throws Exception {
+        return cryptocurrencyRepository.save(getCryptocurrency(cryptocurrencyDto));
     }
 
     @Override

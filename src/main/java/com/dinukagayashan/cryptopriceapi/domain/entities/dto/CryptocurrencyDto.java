@@ -1,6 +1,6 @@
 package com.dinukagayashan.cryptopriceapi.domain.entities.dto;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -8,10 +8,10 @@ import lombok.Data;
 @AllArgsConstructor
 public class CryptocurrencyDto {
 
-    @NotEmpty
+    @NotBlank
     private String id;
 
-    @NotEmpty
+    @NotBlank
     private String name;
 
 }
