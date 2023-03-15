@@ -1,8 +1,8 @@
 package com.dinukagayashan.cryptopriceapi.domain.service.impl;
 
-import com.dinukagayashan.cryptopriceapi.domain.entities.dto.ExceptionDto;
 import com.dinukagayashan.cryptopriceapi.domain.entities.Cryptocurrency;
 import com.dinukagayashan.cryptopriceapi.domain.entities.dto.CryptocurrencyDto;
+import com.dinukagayashan.cryptopriceapi.domain.entities.dto.ExceptionDto;
 import com.dinukagayashan.cryptopriceapi.domain.service.CryptocurrencyService;
 import com.dinukagayashan.cryptopriceapi.external.repository.CryptocurrencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +30,14 @@ public class CryptocurrencyServiceImpl implements CryptocurrencyService {
         }
     }
 
-    private CryptocurrencyDto createCryptocurrencyDto(Cryptocurrency cryptocurrency)throws Exception{
+    private CryptocurrencyDto createCryptocurrencyDto(Cryptocurrency cryptocurrency) throws Exception {
         try {
-            CryptocurrencyDto cryptocurrencyDto=new CryptocurrencyDto();
+            CryptocurrencyDto cryptocurrencyDto = new CryptocurrencyDto();
             cryptocurrencyDto.setId(cryptocurrency.getId());
             cryptocurrencyDto.setName(cryptocurrency.getName());
 
             return cryptocurrencyDto;
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new ExceptionDto(HttpStatus.INTERNAL_SERVER_ERROR, "Error Generating Cryptocurrency", cryptocurrency);
         }
     }
@@ -56,15 +56,15 @@ public class CryptocurrencyServiceImpl implements CryptocurrencyService {
     @Override
     public CryptocurrencyDto getCryptocurrency(String id) throws Exception {
 
-        Cryptocurrency cryptocurrency=cryptocurrencyRepository.findById(id).orElseThrow(
-                ()-> new ExceptionDto(HttpStatus.NOT_FOUND, "No Such Cryptocurrency", id)
+        Cryptocurrency cryptocurrency = cryptocurrencyRepository.findById(id).orElseThrow(
+                () -> new ExceptionDto(HttpStatus.NOT_FOUND, "No Such Cryptocurrency", id)
         );
 
         return createCryptocurrencyDto(cryptocurrency);
     }
 
     @Override
-    public List<CryptocurrencyDto> getAllCryptocurrencies() throws ExceptionDto {
+    public List<CryptocurrencyDto> getAllCryptocurrencies() throws Exception {
         List<CryptocurrencyDto> cryptocurrencyDtoList = new ArrayList<CryptocurrencyDto>();
 
         try {
@@ -73,10 +73,21 @@ public class CryptocurrencyServiceImpl implements CryptocurrencyService {
             for (Cryptocurrency cryptocurrency : cryptocurrencyList) {
                 cryptocurrencyDtoList.add(new CryptocurrencyDto(cryptocurrency.getId(), cryptocurrency.getName()));
             }
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new ExceptionDto(HttpStatus.NOT_FOUND, "No Cryptocurrency", null);
         }
 
         return cryptocurrencyDtoList;
     }
+
+    @Override
+    public CryptocurrencyDto updateCryptocurrency(String id, CryptocurrencyDto cryptocurrencyDto) throws Exception {
+        CryptocurrencyDto oldCryptocurrencyDto=getCryptocurrency(id);
+
+        oldCryptocurrencyDto.setName(cryptocurrencyDto.getName());
+
+        return addCryptocurrency(cryptocurrencyDto);
+    }
+
+
 }

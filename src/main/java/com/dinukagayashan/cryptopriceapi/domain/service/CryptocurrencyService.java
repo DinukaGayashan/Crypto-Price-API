@@ -12,5 +12,7 @@ public interface CryptocurrencyService {
 
     CryptocurrencyDto getCryptocurrency(String id) throws Exception;
 
-    List<CryptocurrencyDto> getAllCryptocurrencies() throws ExceptionDto;
+    List<CryptocurrencyDto> getAllCryptocurrencies() throws Exception;
+
+    CryptocurrencyDto updateCryptocurrency(String id, CryptocurrencyDto cryptocurrencyDto) throws Exception;
 }
