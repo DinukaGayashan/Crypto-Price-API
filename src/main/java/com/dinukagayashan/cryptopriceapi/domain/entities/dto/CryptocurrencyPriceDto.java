@@ -1,6 +1,6 @@
 package com.dinukagayashan.cryptopriceapi.domain.entities.dto;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.util.Date;
@@ -8,10 +8,10 @@ import java.util.Date;
 @Data
 public class CryptocurrencyPriceDto {
 
-    @NotEmpty
+    @NotBlank(message = "id cannot be null or empty")
     private String currencyId;
 
-    @NotEmpty
+    @NotBlank
     private Date date;
 
     private Double openPrice;
