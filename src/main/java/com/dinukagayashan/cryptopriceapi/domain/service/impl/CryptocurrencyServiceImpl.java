@@ -42,6 +42,16 @@ public class CryptocurrencyServiceImpl implements CryptocurrencyService {
         }
     }
 
+    private CryptocurrencyDto editCryptocurrencyDto(CryptocurrencyDto oldCryptocurrency, CryptocurrencyDto newCryptocurrency) throws Exception {
+        try {
+            oldCryptocurrency.setName(newCryptocurrency.getName());
+
+            return oldCryptocurrency;
+        } catch (Exception ex) {
+            throw new ExceptionDto(HttpStatus.INTERNAL_SERVER_ERROR, "Error Editing Cryptocurrency", oldCryptocurrency);
+        }
+    }
+
     @Override
     public CryptocurrencyDto addCryptocurrency(CryptocurrencyDto cryptocurrencyDto) throws Exception {
         Cryptocurrency cryptocurrency = createCryptocurrency(cryptocurrencyDto);
@@ -59,6 +69,12 @@ public class CryptocurrencyServiceImpl implements CryptocurrencyService {
         Cryptocurrency cryptocurrency = cryptocurrencyRepository.findById(id).orElseThrow(
                 () -> new ExceptionDto(HttpStatus.NOT_FOUND, "No Such Cryptocurrency", id)
         );
+
+//        try {
+//             cryptocurrency= cryptocurrencyRepository.findById(id);
+//        }catch (Exception ex){
+//            throw new ExceptionDto(HttpStatus.NOT_FOUND, "No Such Cryptocurrency", id);
+//        }
 
         return createCryptocurrencyDto(cryptocurrency);
     }
@@ -81,12 +97,24 @@ public class CryptocurrencyServiceImpl implements CryptocurrencyService {
     }
 
     @Override
-    public CryptocurrencyDto updateCryptocurrency(String id, CryptocurrencyDto cryptocurrencyDto) throws Exception {
-        CryptocurrencyDto oldCryptocurrencyDto=getCryptocurrency(id);
-
-        oldCryptocurrencyDto.setName(cryptocurrencyDto.getName());
+    public CryptocurrencyDto updateCryptocurrency(String id, CryptocurrencyDto newCryptocurrencyDto) throws Exception {
+        CryptocurrencyDto oldCryptocurrencyDto = getCryptocurrency(id);
+        CryptocurrencyDto cryptocurrencyDto = editCryptocurrencyDto(oldCryptocurrencyDto, newCryptocurrencyDto);
 
         return addCryptocurrency(cryptocurrencyDto);
+    }
+
+    @Override
+    public String deleteCryptocurrency(String id) throws Exception {
+        Cryptocurrency cryptocurrency = createCryptocurrency(getCryptocurrency(id));
+
+        try {
+            cryptocurrencyRepository.delete(cryptocurrency);
+        }catch (Exception ex){
+            throw new ExceptionDto(HttpStatus.INTERNAL_SERVER_ERROR, "Error Deleting Cryptocurrency", id);
+        }
+
+        return id;
     }
 
 

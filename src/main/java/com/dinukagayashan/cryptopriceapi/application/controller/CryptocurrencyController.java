@@ -37,5 +37,9 @@ public class CryptocurrencyController {
         return ResponseEntity.ok().body(new ResponseDto("Cryptocurrency Updated",cryptocurrencyService.updateCryptocurrency(id,cryptocurrencyDto)));
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<ResponseDto> deleteCryptocurrency(@PathVariable String id) throws Exception{
+        return ResponseEntity.ok().body(new ResponseDto("Cryptocurrency Deleted",cryptocurrencyService.deleteCryptocurrency(id)));
+    }
 
 }
