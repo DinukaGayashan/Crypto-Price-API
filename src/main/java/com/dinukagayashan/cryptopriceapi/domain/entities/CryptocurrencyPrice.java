@@ -1,9 +1,11 @@
 package com.dinukagayashan.cryptopriceapi.domain.entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Date;
 
+@Data
 @Entity
 @Table(name = "cryptocurrency_price")
 @IdClass(CryptocurrencyPriceId.class)

@@ -11,11 +11,12 @@ public class CryptocurrencyPriceDto {
     @NotBlank(message = "id cannot be null or empty")
     private String currencyId;
 
-    @NotBlank
+//    @NotBlank(message = "date cannot be null or empty")
     private Date date;
 
     private Double openPrice;
     private Double highestPrice;
     private Double lowestPrice;
     private Double closePrice;
+
 }
