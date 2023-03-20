@@ -3,7 +3,6 @@ package com.dinukagayashan.cryptopriceapi.application.exceptions;
 import com.dinukagayashan.cryptopriceapi.domain.entities.dto.ExceptionDto;
 import com.dinukagayashan.cryptopriceapi.domain.entities.dto.ResponseDto;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;

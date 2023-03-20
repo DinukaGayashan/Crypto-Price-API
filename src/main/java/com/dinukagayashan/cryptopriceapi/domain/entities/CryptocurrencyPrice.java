@@ -21,6 +21,7 @@ public class CryptocurrencyPrice {
     private Double highestPrice;
     private Double lowestPrice;
     private Double closePrice;
+    private Double volume;
 
 }
 

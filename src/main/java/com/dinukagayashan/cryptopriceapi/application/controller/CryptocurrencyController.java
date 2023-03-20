@@ -29,6 +29,7 @@ public class CryptocurrencyController {
 
     @GetMapping("/get/all")
     public ResponseEntity<ResponseDto> getAllCryptocurrencies() throws Exception {
+//        log.info("getAllCryptocurrencies method");
         return ResponseEntity.ok().body(new ResponseDto("Cryptocurrencies Found", cryptocurrencyService.getAllCryptocurrencies()));
     }
 

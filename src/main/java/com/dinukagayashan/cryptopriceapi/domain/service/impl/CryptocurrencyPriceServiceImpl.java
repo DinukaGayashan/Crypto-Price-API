@@ -41,6 +41,7 @@ public class CryptocurrencyPriceServiceImpl implements CryptocurrencyPriceServic
         cryptocurrencyPriceDto.setHighestPrice(cryptocurrencyPrice.getHighestPrice());
         cryptocurrencyPriceDto.setLowestPrice(cryptocurrencyPrice.getLowestPrice());
         cryptocurrencyPriceDto.setClosePrice(cryptocurrencyPrice.getClosePrice());
+        cryptocurrencyPriceDto.setVolume(cryptocurrencyPrice.getVolume());
 
         return cryptocurrencyPriceDto;
     }

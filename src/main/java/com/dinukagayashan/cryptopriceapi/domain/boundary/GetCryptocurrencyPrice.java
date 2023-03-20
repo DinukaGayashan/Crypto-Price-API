@@ -1,2 +1,4 @@
-package com.dinukagayashan.cryptopriceapi.domain.boundary;public interface GetCryptocurrencyPrice {
+package com.dinukagayashan.cryptopriceapi.domain.boundary;
+
+public interface GetCryptocurrencyPrice {
 }
