@@ -2,7 +2,9 @@ package com.dinukagayashan.cryptopriceapi.domain.service.impl;
 
 import com.dinukagayashan.cryptopriceapi.domain.entities.Cryptocurrency;
 import com.dinukagayashan.cryptopriceapi.domain.entities.dto.CryptocurrencyDto;
+import com.dinukagayashan.cryptopriceapi.domain.entities.dto.ExceptionDto;
 import com.dinukagayashan.cryptopriceapi.external.repository.CryptocurrencyRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +19,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @RunWith(MockitoJUnitRunner.class)
 class CryptocurrencyServiceImplTest {
@@ -41,9 +44,22 @@ class CryptocurrencyServiceImplTest {
     }
 
     @Test
+    void addCryptocurrency_failure() {
+        Mockito.when(cryptocurrencyRepository.save(getCryptocurrency(cryptocurrencyId))).thenThrow(RuntimeException.class);
+        assertThrows(ExceptionDto.class, () -> this.cryptocurrencyService.addCryptocurrency(getCryptocurrencyDto(cryptocurrencyId)));
+    }
+
+    @Test
     void getCryptocurrency_success() throws Exception {
         Mockito.when(cryptocurrencyRepository.findById(cryptocurrencyId)).thenReturn(Optional.of(getCryptocurrency(cryptocurrencyId)));
         assertEquals(getCryptocurrencyDto(cryptocurrencyId), cryptocurrencyService.getCryptocurrency(cryptocurrencyId));
+    }
+
+    @Test
+    void getCryptocurrency_failure() {
+        Mockito.when(cryptocurrencyRepository.findById(cryptocurrencyId)).thenThrow(EntityNotFoundException.class);
+        assertThrows(Exception.class,()->this.cryptocurrencyService.getCryptocurrency(cryptocurrencyId));
+        //TODO: check Exception Class
     }
 
     @Test
@@ -53,16 +69,22 @@ class CryptocurrencyServiceImplTest {
     }
 
     @Test
+    void getAllCryptocurrencies_failure() throws Exception {
+        Mockito.when(cryptocurrencyRepository.findAll()).thenThrow(RuntimeException.class);
+        assertThrows(ExceptionDto.class,()->this.cryptocurrencyService.getCryptocurrency(cryptocurrencyId));
+    }
+
+    @Test
     void updateCryptocurrency_success() throws Exception {
         Mockito.when(cryptocurrencyRepository.findById(cryptocurrencyId)).thenReturn(Optional.of(getCryptocurrency(cryptocurrencyId)));
         Mockito.when(cryptocurrencyRepository.save(getCryptocurrency(cryptocurrencyId))).thenReturn(getCryptocurrency(cryptocurrencyId));
-        assertEquals(getCryptocurrencyDto(cryptocurrencyId),cryptocurrencyService.updateCryptocurrency(cryptocurrencyId,getCryptocurrencyDto(cryptocurrencyId)));
+        assertEquals(getCryptocurrencyDto(cryptocurrencyId), cryptocurrencyService.updateCryptocurrency(cryptocurrencyId, getCryptocurrencyDto(cryptocurrencyId)));
     }
 
     @Test
     void deleteCryptocurrency_success() throws Exception {
         Mockito.when(cryptocurrencyRepository.findById(cryptocurrencyId)).thenReturn(Optional.of(getCryptocurrency(cryptocurrencyId)));
-        assertEquals(cryptocurrencyId,cryptocurrencyService.deleteCryptocurrency(cryptocurrencyId));
+        assertEquals(cryptocurrencyId, cryptocurrencyService.deleteCryptocurrency(cryptocurrencyId));
     }
 
     private Cryptocurrency getCryptocurrency(String id) {
