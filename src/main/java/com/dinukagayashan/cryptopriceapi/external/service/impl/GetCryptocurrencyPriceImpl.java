@@ -1,29 +1,30 @@
 package com.dinukagayashan.cryptopriceapi.external.service.impl;
 
 import com.dinukagayashan.cryptopriceapi.domain.boundary.GetCryptocurrencyPrice;
-import org.springframework.context.annotation.Configuration;
+import com.dinukagayashan.cryptopriceapi.external.configuration.ApiConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import org.springframework.http.*;
-
-@Configuration
 @EnableScheduling
 @Service
 public class GetCryptocurrencyPriceImpl implements GetCryptocurrencyPrice {
 
-    final String dataSourceUrl="https://rest.coinapi.io/v1/ohlcv/";
+    @Value("${CoinAPI.dataSourceAddress}")
+    private String dataSourceUrl;
 
-    RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    ApiConfiguration apiConfiguration;
 
     @Scheduled(fixedRate = 100000)
-    void getCryptocurrencyPriceData(){
-        HttpHeaders headers=new HttpHeaders();
-        headers.add("X-CoinAPI-Key","D6B76D7C-D516-4E9E-AFA0-3462D6552BD7");
-        HttpEntity<String> entity = new HttpEntity<>(null, headers);
-        ResponseEntity<String> response = restTemplate.exchange(dataSourceUrl + "BITSTAMP_SPOT_BTC_USD/latest?period_id=1DAY" , HttpMethod.GET, entity, String.class);
+    public void getCryptocurrencyPriceData() {
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.exchange(dataSourceUrl, HttpMethod.GET, apiConfiguration.getHttpEntityConfiguration(), String.class);
 
         System.out.println(response);
     }
