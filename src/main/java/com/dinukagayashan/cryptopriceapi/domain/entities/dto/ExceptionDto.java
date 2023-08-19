@@ -10,5 +10,4 @@ public class ExceptionDto extends Exception {
     private HttpStatus httpStatus;
     private String message;
     private Object data;
-
 }

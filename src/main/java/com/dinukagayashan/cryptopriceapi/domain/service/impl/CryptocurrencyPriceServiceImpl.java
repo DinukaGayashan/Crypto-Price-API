@@ -17,8 +17,8 @@ public class CryptocurrencyPriceServiceImpl implements CryptocurrencyPriceServic
     private CryptocurrencyPriceRepository cryptocurrencyPriceRepository;
 
     @Override
-    public CryptocurrencyPriceDto addCryptocurrencyPrice(CryptocurrencyPriceDto cryptocurrencyPriceDto) throws ExceptionDto{
-        CryptocurrencyPrice cryptocurrencyPrice=createCryptocurrencyPrice(cryptocurrencyPriceDto);
+    public CryptocurrencyPriceDto addCryptocurrencyPrice(CryptocurrencyPriceDto cryptocurrencyPriceDto) throws ExceptionDto {
+        CryptocurrencyPrice cryptocurrencyPrice = createCryptocurrencyPrice(cryptocurrencyPriceDto);
         try {
             cryptocurrencyPriceRepository.save(cryptocurrencyPrice);
             return cryptocurrencyPriceDto;
@@ -35,8 +35,8 @@ public class CryptocurrencyPriceServiceImpl implements CryptocurrencyPriceServic
         return createCryptocurrencyPriceDto(cryptocurrencyPrice);
     }
 
-    private CryptocurrencyPrice createCryptocurrencyPrice(CryptocurrencyPriceDto cryptocurrencyPriceDto){
-        CryptocurrencyPrice cryptocurrencyPrice=new CryptocurrencyPrice();
+    private CryptocurrencyPrice createCryptocurrencyPrice(CryptocurrencyPriceDto cryptocurrencyPriceDto) {
+        CryptocurrencyPrice cryptocurrencyPrice = new CryptocurrencyPrice();
         cryptocurrencyPrice.setCurrencyId(cryptocurrencyPriceDto.getCurrencyId());
         cryptocurrencyPrice.setDate(cryptocurrencyPriceDto.getDate());
         cryptocurrencyPrice.setOpenPrice(cryptocurrencyPriceDto.getOpenPrice());
@@ -47,8 +47,8 @@ public class CryptocurrencyPriceServiceImpl implements CryptocurrencyPriceServic
         return cryptocurrencyPrice;
     }
 
-    private CryptocurrencyPriceDto createCryptocurrencyPriceDto(CryptocurrencyPrice cryptocurrencyPrice){
-        CryptocurrencyPriceDto cryptocurrencyPriceDto=new CryptocurrencyPriceDto();
+    private CryptocurrencyPriceDto createCryptocurrencyPriceDto(CryptocurrencyPrice cryptocurrencyPrice) {
+        CryptocurrencyPriceDto cryptocurrencyPriceDto = new CryptocurrencyPriceDto();
         cryptocurrencyPriceDto.setCurrencyId(cryptocurrencyPrice.getCurrencyId());
         cryptocurrencyPriceDto.setDate(cryptocurrencyPrice.getDate());
         cryptocurrencyPriceDto.setOpenPrice(cryptocurrencyPrice.getOpenPrice());

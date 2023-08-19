@@ -29,18 +29,17 @@ public class CryptocurrencyController {
 
     @GetMapping("/get/all")
     public ResponseEntity<ResponseDto> getAllCryptocurrencies() throws Exception {
-//        log.info("getAllCryptocurrencies method");
         return ResponseEntity.ok().body(new ResponseDto("Cryptocurrencies Found", cryptocurrencyService.getAllCryptocurrencies()));
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<ResponseDto> updateCryptocurrency(@PathVariable String id, @RequestBody CryptocurrencyDto cryptocurrencyDto) throws Exception {
-        return ResponseEntity.ok().body(new ResponseDto("Cryptocurrency Updated",cryptocurrencyService.updateCryptocurrency(id,cryptocurrencyDto)));
+        return ResponseEntity.ok().body(new ResponseDto("Cryptocurrency Updated", cryptocurrencyService.updateCryptocurrency(id, cryptocurrencyDto)));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ResponseDto> deleteCryptocurrency(@PathVariable String id) throws Exception{
-        return ResponseEntity.ok().body(new ResponseDto("Cryptocurrency Deleted",cryptocurrencyService.deleteCryptocurrency(id)));
+    public ResponseEntity<ResponseDto> deleteCryptocurrency(@PathVariable String id) throws Exception {
+        return ResponseEntity.ok().body(new ResponseDto("Cryptocurrency Deleted", cryptocurrencyService.deleteCryptocurrency(id)));
     }
 
 }

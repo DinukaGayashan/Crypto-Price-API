@@ -14,7 +14,7 @@ public class ApiConfiguration {
     @Value("${CoinAPI.headerValue}")
     private String headerValue;
 
-    public HttpEntity<String> getHttpEntityConfiguration(){
+    public HttpEntity<String> getHttpEntityConfiguration() {
         HttpHeaders headers = new HttpHeaders();
         headers.add(headerName, headerValue);
         return new HttpEntity<>(null, headers);

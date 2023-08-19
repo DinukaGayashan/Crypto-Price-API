@@ -11,7 +11,8 @@ import java.util.Date;
 @IdClass(CryptocurrencyPriceId.class)
 public class CryptocurrencyPrice {
 
-    @Id @Column(length = 10)
+    @Id
+    @Column(length = 10)
     private String currencyId;
 
     @Id

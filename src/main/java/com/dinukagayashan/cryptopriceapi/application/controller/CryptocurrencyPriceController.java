@@ -23,7 +23,6 @@ public class CryptocurrencyPriceController {
 
     @GetMapping("/get")
     public ResponseEntity<ResponseDto> getCryptocurrencyPrice(@Valid @RequestBody CryptocurrencyPriceId cryptocurrencyPriceId) throws Exception {
-        System.out.println(cryptocurrencyPriceId);
         return ResponseEntity.ok().body(new ResponseDto("Cryptocurrency Price Found", cryptocurrencyPriceService.getCryptocurrencyPrice(cryptocurrencyPriceId)));
     }
 

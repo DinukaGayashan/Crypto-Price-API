@@ -24,10 +24,4 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new ResponseDto(Objects.requireNonNull(methodArgumentNotValidException.getBindingResult().getFieldError()).getDefaultMessage(), null), methodArgumentNotValidException.getStatusCode());
     }
 
-//    @ExceptionHandler(value = Exception.class)
-//    public ResponseEntity<ResponseDto> handleAllExceptions(Exception exception){
-//        log.error("generic exception");
-//        return new ResponseEntity<>(new ResponseDto("generic ex",null), HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
-
 }
